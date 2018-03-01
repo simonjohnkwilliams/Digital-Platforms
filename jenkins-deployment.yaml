@@ -1,19 +1,26 @@
-apiVersion: extensions/v1beta1 # for versions before 1.7.0 use apps/v1beta1
+apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: jenkins-deployment
+  name: jenkins-leader
 spec:
   replicas: 1
-  selector:
-    matchLabels:
-      app: jenkins
   template:
     metadata:
       labels:
-        app: jenkins
+        app: jenkins-leader
     spec:
+      securityContext:
+        fsGroup: 99
       containers:
-      - name: jenkins
-        image: jenkins:lts
-        ports:
-        - containerPort: 8080
+        - name: jenkins-leader
+          image: jenkins:lts
+          volumeMounts:
+            - name: jenkins-home
+              mountPath: /var/jenkins_home
+          ports:
+            - containerPort: 8080
+            - containerPort: 50000
+      volumes:
+      - name: jenkins-home
+        persistentVolumeClaim:
+          claimName: jenkins-leader-pvc
