@@ -4,7 +4,7 @@
     {
       "Action": "UPSERT",
       "ResourceRecordSet": {
-        "Name": "iis-default.k8s.kumorilabs.com",
+        "Name": "iis-default.edwardsvacuumdigital.me.uk",
         "Type": "CNAME",
         "TTL": 300,
         "ResourceRecords": [
