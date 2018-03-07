@@ -13,7 +13,7 @@ spec:
         fsGroup: 99
       containers:
         - name: jenkins-leader
-          image: jenkins
+          image: simonjohnkwilliams/jenkins-kubernetes-leader:lts
           volumeMounts:
             - name: jenkins-home
               mountPath: /var/jenkins_home
